@@ -73,3 +73,14 @@ When the certificate reaches the error threshold (3 days remaining) the log leve
 
 This behavior allows Pandora FMS to collect logs and display a green indicator for `[INFO]` entries and a red indicator for `[ERROR]` entries. From the logs you can also see the remaining days (from 3 days) or if a certificate has already expired. Level-1 operators can then open an urgent incident or apply KB procedures to renew certificates, while vCenter administrators receive the emails to replace certificates before they expire.
 
+
+## Manual Certificate Verification
+
+To manually list all certificates on a vCenter instance (useful for verification or cross-checking), connect to the vCenter via SSH and run:
+
+```bash
+for i in $(/usr/lib/vmware-vmafd/bin/vecs-cli store list); do echo STORE $i; /usr/lib/vmware-vmafd/bin/vecs-cli entry list --store $i --text | egrep "Alias|Not After"; done
+```
+
+This will display all certificate stores and their expiration dates (`Not After`), allowing you to verify the monitored certificates manually or troubleshoot any discrepancies.
+
