@@ -22,9 +22,9 @@ To follow the principle of least privilege, perform these steps in each vCenter:
 ## 🚀 Deployment
 
 ### 1. Requirements
-Ensure you have the `requests` library installed:
+Install dependencies from the provided `requirements.txt`:
 ```bash
-pip install requests
+pip install -r requirements.txt
 ```
 
 ## crond file
@@ -39,4 +39,32 @@ VC_PASS="your_secure_password"
 # Run once a day at 08:00 AM as root user
 00 08 * * * root /usr/bin/python3 /opt/scripts/vcenter_cert_check.py 
 ```
+
+
+## Practical Example
+
+Below are example outputs and alert messages for different states. Hostnames are fictional.
+
+Normal output (no imminent expirations):
+
+```bash
+# cat /var/log/vcenter*.log
+[INFO] Certificates OK on vCenter vcenter01.localdomain.local
+[INFO] Certificates OK on vCenter vcenter02.localdomain.local
+```
+
+When a certificate reaches the alert threshold (10 days remaining) the script sends an email each time the cron job runs. Example email:
+
+- Subject: ALERT: Certificate Expiration - vcenter01.localdomain.local
+- Body: CRITICAL: The certificate for vcenter01.localdomain.local expires in ONLY 10 days (DATE and TIME).
+
+When the certificate reaches the error threshold (3 days remaining) the log level changes to `[ERROR]` and the lines look like this:
+
+```bash
+# cat /var/log/vcenter*.log
+[ERROR] Certificate expiring soon (3 days) on vCenter vcenter01.localdomain.local
+[ERROR] Certificate expiring soon (3 days) on vCenter vcenter02.localdomain.local
+```
+
+This behavior allows Pandora FMS to collect logs and display a green indicator for `[INFO]` entries and a red indicator for `[ERROR]` entries. From the logs you can also see the remaining days (from 3 days) or if a certificate has already expired. Level-1 operators can then open an urgent incident or apply KB procedures to renew certificates, while vCenter administrators receive the emails to replace certificates before they expire.
 

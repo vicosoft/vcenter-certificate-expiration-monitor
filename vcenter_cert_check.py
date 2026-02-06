@@ -7,7 +7,7 @@ This script checks TLS certificate validity via REST API and sends alerts.
 """
 
 __author__ = "Jose Antonio Vico"
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 __status__ = "Production"
 __license__ = "Apache License 2.0"
 
