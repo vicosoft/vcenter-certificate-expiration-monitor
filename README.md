@@ -25,3 +25,18 @@ To follow the principle of least privilege, perform these steps in each vCenter:
 Ensure you have the `requests` library installed:
 ```bash
 pip install requests
+```
+
+## crond file
+
+```
+# /etc/cron.d/certs.cron: Centralized vCenter Certificate Check
+# Permissions: chmod 400 root:root
+
+# Service account password used by the script
+VC_PASS="your_secure_password"
+
+# Run once a day at 08:00 AM as root user
+00 08 * * * root /usr/bin/python3 /opt/scripts/vcenter_cert_check.py 
+```
+
