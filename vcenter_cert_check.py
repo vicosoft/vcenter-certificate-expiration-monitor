@@ -6,7 +6,7 @@ vCenter 8 Certificate Expiration Monitor
 This script checks TLS certificate validity via REST API and sends alerts.
 """
 
-__author__ = "Jose Antonio Vico"
+__author__ = "Jose Antonio Vico <https://github.com/vicosoft>"
 __version__ = "1.0.3"
 __status__ = "Production"
 __license__ = "Apache License 2.0"

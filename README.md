@@ -2,6 +2,12 @@
 
 A lightweight Python automation tool to monitor TLS certificates across multiple vCenter 8 instances using the native REST API.
 
+
+## Authors
+
+- Jose Antonio Vico — https://github.com/vicosoft
+
+
 ## ⚙️ How it Works
 The script connects to the vCenter API, retrieves the TLS certificate information, and calculates the remaining days of validity.
 - **Email Alerts**: Triggered when validity is below 10 days.
@@ -39,7 +45,6 @@ VC_PASS="your_secure_password"
 # Run once a day at 08:00 AM as root user
 00 08 * * * root /usr/bin/python3 /opt/scripts/vcenter_cert_check.py 
 ```
-
 
 ## Practical Example
 
